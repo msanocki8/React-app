@@ -5,3 +5,6 @@
     border-radius: 0.5rem;
     
 }
+.actions > button{
+    background-color: blue;
+}
