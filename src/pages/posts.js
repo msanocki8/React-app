@@ -1,19 +1,39 @@
-import LikeCounter from "../components/app/LikeCounter/LikeCounter";
+import { useDispatch, useSelector } from "react-redux";
+import LikeCounter from "../components/LikeCounter/LikeCounter";
+import { useEffect } from "react";
+import { fetchPosts } from "../Store/postsSlice";
 
 function Posts() {
-    return (
-        <>
-        <h1>leatest post</h1>
-        <article>
-        <h1>LATES POST</h1>
-    <div className='posts'>
-    <LikeCounter title="pierwszy post" description=" opis artykułu" count="5" color="red" author></LikeCounter>
-    <LikeCounter title="2" description=" opis artykułu" count="10" color="yellow"></LikeCounter>
-    <LikeCounter title="3" description=" opis artykułu" count="5" color="green"></LikeCounter> 
-        <LikeCounter></LikeCounter>
-    </div>
-        </article>
-        </>
-    )
+  const dispatch = useDispatch();
+  const { posts, error, status } = useSelector((state) => state.posts);
+
+  useEffect(() => {
+    if (status == "idle") {
+      dispatch(fetchPosts());
+    }
+  }, [status, dispatch]);
+
+  return (
+    <>
+      <h1>LATEST POSTS</h1>
+      <article>
+        <div className="posts">
+          {status == "loading" && <p>Ładowanie ...</p>}
+          {status == "failed" && <p>Błąd: {error}</p>}
+          {status == "succeeded" &&
+            posts.map((post) => (
+              <LikeCounter
+                key={post.id}
+                color=""
+                title={post.title}
+                description={post.body}
+                count="5"
+              ></LikeCounter>
+            ))}
+        </div>
+      </article>
+    </>
+  );
 }
+
 export default Posts;

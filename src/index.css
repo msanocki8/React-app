@@ -1,6 +1,28 @@
 .posts{
   display: flex;
+  flex-direction: row;
   flex-wrap: wrap;
   gap: 3rem;
 
+}
+body{
+  margin: 0px;
+  height: 100vh;
+}
+
+.light{
+  background-color: rgb(229, 227, 227);
+  color: black;
+  height:  100%;
+  
+}
+
+.dark{
+  background-color: rgb(47, 44, 44);
+  color:  wheat;
+  height:  100%;
+
+}
+#root {
+  height:  100%;
 }
